@@ -17,8 +17,11 @@ class MainActivity : AppCompatActivity() {
     lateinit var preferenciasId1: SharedPreferences
     lateinit var preferenciasId2: SharedPreferences
 
-//    lateinit var preferenciasCachorro1: SharedPreferences
-//    lateinit var preferenciasCachorro2: SharedPreferences
+    lateinit var preferenciasCachorroRaca1: SharedPreferences
+    lateinit var preferenciasCachorroRaca2: SharedPreferences
+
+    lateinit var preferenciasCachorroPreco1: SharedPreferences
+    lateinit var preferenciasCachorroPreco2: SharedPreferences
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -26,9 +29,12 @@ class MainActivity : AppCompatActivity() {
 
         preferenciasId1 = getSharedPreferences("id1", MODE_PRIVATE)
         preferenciasId2 = getSharedPreferences("id2", MODE_PRIVATE)
-//
-//        preferenciasCachorro1 = getSharedPreferences("cachorro1", MODE_PRIVATE)
-//        preferenciasCachorro2 = getSharedPreferences("cachorro2", MODE_PRIVATE)
+
+        preferenciasCachorroRaca1 = getSharedPreferences("cachorroRaca1", MODE_PRIVATE)
+        preferenciasCachorroRaca2 = getSharedPreferences("cachorroRaca2", MODE_PRIVATE)
+
+        preferenciasCachorroPreco1 = getSharedPreferences("cachorroPreco1", MODE_PRIVATE)
+        preferenciasCachorroPreco2 = getSharedPreferences("cachorroPreco2", MODE_PRIVATE)
 
     }
 
@@ -47,9 +53,12 @@ class MainActivity : AppCompatActivity() {
 
         val editId1 = preferenciasId1.edit()
         val editId2 = preferenciasId2.edit()
-//
-//        val editCachorro1 = preferenciasCachorro1.edit()
-//        val editCachorro2 = preferenciasCachorro2.edit()
+
+        val editCachorroRaca1 = preferenciasCachorroRaca1.edit()
+        val editCachorroRaca2 = preferenciasCachorroRaca2.edit()
+
+        val editCachorroPreco1 = preferenciasCachorroPreco1.edit()
+        val editCachorroPreco2 = preferenciasCachorroPreco2.edit()
 
         val telaSucesso = Intent(this, TelaSucesso::class.java)
         val telaErro = Intent(this, TelaErro::class.java)
@@ -66,8 +75,16 @@ class MainActivity : AppCompatActivity() {
                 editId1.commit()
 
                 val cachorro1 = response.body()
-                println("teste1")
-                println(cachorro1)
+
+                if (cachorro1 != null) {
+                    editCachorroRaca1.putString("cachorroRaca1", cachorro1.raca)
+                    editCachorroRaca1.commit()
+
+                    var preco1 = cachorro1.precoMedio.toString()
+
+                    editCachorroPreco1.putString("editCachorroPreco1", preco1)
+                    editCachorroPreco1.commit()
+                }
 
                 apiCachorro.get(id2).enqueue((object : Callback<Cachorro>{
                     override fun onFailure(call: Call<Cachorro>, t: Throwable) {
@@ -80,12 +97,21 @@ class MainActivity : AppCompatActivity() {
                         editId2.commit()
 
                         val cachorro2 = response.body()
-                        println("teste2")
-                        println(cachorro2)
+                        if (cachorro2 != null) {
+                            editCachorroRaca2.putString("cachorroRaca2", cachorro2.raca)
+                            editCachorroRaca2.commit()
 
+
+                            var preco2 = cachorro2.precoMedio.toString()
+
+                            editCachorroPreco2.putString("editCachorroPreco2", preco2)
+                            editCachorroPreco2.commit()
+                        }
                         if(cachorro1 != null || cachorro2 != null){
-                            telaSucesso.putExtra("id1", id1)
-                            telaSucesso.putExtra("id2", id2)
+                            telaSucesso.putExtra("cachorroRaca1", cachorro1?.raca)
+                            telaSucesso.putExtra("cachorroRaca2", cachorro2?.raca)
+                            telaSucesso.putExtra("cachorroPreco1", cachorro1?.precoMedio.toString())
+                            telaSucesso.putExtra("cachorroPreco2", cachorro2?.precoMedio.toString())
                             startActivity(telaSucesso)
                         }else{
                             telaErro.putExtra("id1", id1)
