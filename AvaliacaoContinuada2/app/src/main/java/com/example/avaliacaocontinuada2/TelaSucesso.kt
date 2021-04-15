@@ -32,20 +32,6 @@ class TelaSucesso : AppCompatActivity() {
 
             var mensagemPreco = getString(R.string.preco_total, precoTotal)
             precoMensagem.text = mensagemPreco
-        } else if(raca1 != null && raca2 == null){
-            var mensagemDog1 = getString(R.string.cachorro1, raca1)
-            cachorro1.text = mensagemDog1
-            cachorro2.text = "Não encontrado"
-
-            var mensagemPreco = getString(R.string.preco_total, precoTotal)
-            precoMensagem.text = mensagemPreco
-        } else if(raca1 == null && raca2 != null){
-            var mensagemDog2 = getString(R.string.cachorro1, raca1)
-            cachorro2.text = mensagemDog2
-            cachorro1.text = "Não encontrado"
-
-            var mensagemPreco = getString(R.string.preco_total, precoTotal)
-            precoMensagem.text = mensagemPreco
         }
 
 
