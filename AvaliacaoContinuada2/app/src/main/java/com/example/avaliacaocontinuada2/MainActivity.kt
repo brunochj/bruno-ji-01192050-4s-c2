@@ -14,15 +14,21 @@ import retrofit2.Response
 
 class MainActivity : AppCompatActivity() {
 
-    lateinit var preferencias1: SharedPreferences
-    lateinit var preferencias2: SharedPreferences
+    lateinit var preferenciasId1: SharedPreferences
+    lateinit var preferenciasId2: SharedPreferences
+
+//    lateinit var preferenciasCachorro1: SharedPreferences
+//    lateinit var preferenciasCachorro2: SharedPreferences
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        preferencias1 = getSharedPreferences("id1", MODE_PRIVATE)
-        preferencias2 = getSharedPreferences("id2", MODE_PRIVATE)
+        preferenciasId1 = getSharedPreferences("id1", MODE_PRIVATE)
+        preferenciasId2 = getSharedPreferences("id2", MODE_PRIVATE)
+//
+//        preferenciasCachorro1 = getSharedPreferences("cachorro1", MODE_PRIVATE)
+//        preferenciasCachorro2 = getSharedPreferences("cachorro2", MODE_PRIVATE)
 
     }
 
@@ -39,8 +45,11 @@ class MainActivity : AppCompatActivity() {
         val id1String = etId1.text.toString()
         val id2String = etId2.text.toString()
 
-        val edit1 = preferencias1.edit()
-        val edit2 = preferencias2.edit()
+        val editId1 = preferenciasId1.edit()
+        val editId2 = preferenciasId2.edit()
+//
+//        val editCachorro1 = preferenciasCachorro1.edit()
+//        val editCachorro2 = preferenciasCachorro2.edit()
 
         val telaSucesso = Intent(this, TelaSucesso::class.java)
         val telaErro = Intent(this, TelaErro::class.java)
@@ -53,8 +62,8 @@ class MainActivity : AppCompatActivity() {
 
             override fun onResponse(call: Call<Cachorro>, response: Response<Cachorro>) {
 
-                edit1.putString("id1", id1String)
-                edit1.commit()
+                editId1.putString("id1", id1String)
+                editId1.commit()
 
                 val cachorro1 = response.body()
                 println("teste1")
@@ -67,22 +76,20 @@ class MainActivity : AppCompatActivity() {
 
                     override fun onResponse(call: Call<Cachorro>, response: Response<Cachorro>) {
 
-                        edit2.putString("id2", id2String)
-                        edit2.commit()
+                        editId2.putString("id2", id2String)
+                        editId2.commit()
 
                         val cachorro2 = response.body()
                         println("teste2")
                         println(cachorro2)
 
                         if(cachorro1 != null || cachorro2 != null){
-//                            telaSucesso.putExtra("id1", id1String)
-//                            telaSucesso.putExtra("id2", id2String)
                             telaSucesso.putExtra("id1", id1)
                             telaSucesso.putExtra("id2", id2)
                             startActivity(telaSucesso)
                         }else{
-                            telaErro.putExtra("id1", id1String)
-                            telaErro.putExtra("id2", id2String)
+                            telaErro.putExtra("id1", id1)
+                            telaErro.putExtra("id2", id2)
                             startActivity(telaErro)
                         }
                     }

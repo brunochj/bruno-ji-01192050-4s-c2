@@ -6,5 +6,4 @@
     <string name="cachorro">Cachorro %1$d: %2%s</string>
     <string name="preco_total">Preço total de compra: R$%1$.2f</string>
     <string name="titulo_erro">Deu ruim... Nenhum cachorro encontrado com os IDs %1$d e %2$d</string>
-<!--    <string name="titulo_erro">Deu ruim... Nenhum cachorro encontrado com os IDs %1$s e %2$s</string>-->
 </resources>

@@ -11,8 +11,6 @@ class TelaErro : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_tela_erro)
 
-//        var id1 = intent.getStringExtra("id1")
-//        var id2 = intent.getStringExtra("id2")
         var id1 = intent.getIntExtra("id1", 0)
         var id2 = intent.getIntExtra("id2", 0)
 
