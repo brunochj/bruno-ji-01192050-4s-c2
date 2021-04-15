@@ -24,8 +24,10 @@ class TelaSucesso : AppCompatActivity() {
         println(preco1)
         println(preco2)
 
-        val cachorro1: TextView = findViewById(R.id.tv_cachorro1)
-        val cachorro2: TextView = findViewById(R.id.tv_cachorro2)
+        var cachorro1: TextView = findViewById(R.id.tv_cachorro1)
+        var cachorro2: TextView = findViewById(R.id.tv_cachorro2)
+
+        var precoMensagem: TextView = findViewById(R.id.tv_precoTotal)
 
         var mensagemDog1 = getString(R.string.cachorro1, raca1)
         cachorro1.text = mensagemDog1
@@ -33,6 +35,7 @@ class TelaSucesso : AppCompatActivity() {
         cachorro2.text = mensagemDog2
 
         var mensagemPreco = getString(R.string.preco_total, precoTotal)
+        precoMensagem.text = mensagemPreco
 
 
     }
